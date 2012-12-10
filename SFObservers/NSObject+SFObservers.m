@@ -10,9 +10,9 @@
 static NSString const *NSObjectKVOSFObserversArrayKey = @"NSObjectKVOSFObserversArrayKey";
 static NSString const *NSObjectKVOSFObserversAllowMethodForwardingKey = @"NSObjectKVOSFObserversAllowMethodForwardingKey";
 
-static NSString *NSObjectKVOSFObserversAddSelector = @"sf_original_addObserver:forKeyPath:options:context:";
-static NSString *NSObjectKVOSFObserversRemoveSelector = @"sf_original_removeObserver:forKeyPath:";
-static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_removeObserver:forKeyPath:context:";
+static NSString *NSObjectKVOSFObserversAddSelector = @"addObserver:forKeyPath:options:context:";
+static NSString *NSObjectKVOSFObserversRemoveSelector = @"removeObserver:forKeyPath:";
+static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"removeObserver:forKeyPath:context:";
 
 @interface __SFObserversKVOObserverInfo : NSObject
 @property(nonatomic, copy) NSString *keyPath;
@@ -52,9 +52,9 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"sf_original_re
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     @autoreleasepool {
-      [self sf_swapSelector:@selector(addObserver:forKeyPath:options:context:) withSelector:@selector(sf_addObserver:forKeyPath:options:context:)];
-      [self sf_swapSelector:@selector(removeObserver:forKeyPath:) withSelector:@selector(sf_removeObserver:forKeyPath:)];
-      [self sf_swapSelector:@selector(removeObserver:forKeyPath:context:) withSelector:@selector(sf_removeObserver:forKeyPath:context:)];
+//      [self sf_swapSelector:@selector(addObserver:forKeyPath:options:context:) withSelector:@selector(sf_addObserver:forKeyPath:options:context:)];
+//      [self sf_swapSelector:@selector(removeObserver:forKeyPath:) withSelector:@selector(sf_removeObserver:forKeyPath:)];
+//      [self sf_swapSelector:@selector(removeObserver:forKeyPath:context:) withSelector:@selector(sf_removeObserver:forKeyPath:context:)];
     }
   });
 }

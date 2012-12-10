@@ -11,9 +11,9 @@
 static NSString const *NSNotificationCenterSFObserversArrayKey = @"NSNotificationCenterSFObserversArrayKey";
 static NSString const *NSNotificationCenterSFObserversAllowMethodForwardingKey = @"NSNotificationCenterSFObserversAllowMethodForwardingKey";
 
-static NSString *NSNotificationCenterSFObserversAddSelector = @"sf_original_addObserver:selector:name:object:";
-static NSString *NSNotificationCenterSFObserversRemoveSelector = @"sf_original_removeObserver:";
-static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_original_removeObserver:name:object:";
+static NSString *NSNotificationCenterSFObserversAddSelector = @"addObserver:selector:name:object:";
+static NSString *NSNotificationCenterSFObserversRemoveSelector = @"removeObserver:";
+static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"removeObserver:name:object:";
 
 @interface __SFObserversNotificationObserverInfo : NSObject
 @property(nonatomic, copy) NSString *name;
@@ -53,9 +53,9 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     @autoreleasepool {
-      [self sf_swapSelector:@selector(addObserver:selector:name:object:) withSelector:@selector(sf_addObserver:selector:name:object:)];
-      [self sf_swapSelector:@selector(removeObserver:) withSelector:@selector(sf_removeObserver:)];
-      [self sf_swapSelector:@selector(removeObserver:name:object:) withSelector:@selector(sf_removeObserver:name:object:)];
+//      [self sf_swapSelector:@selector(addObserver:selector:name:object:) withSelector:@selector(sf_addObserver:selector:name:object:)];
+//      [self sf_swapSelector:@selector(removeObserver:) withSelector:@selector(sf_removeObserver:)];
+//      [self sf_swapSelector:@selector(removeObserver:name:object:) withSelector:@selector(sf_removeObserver:name:object:)];
     }
   });
 }
