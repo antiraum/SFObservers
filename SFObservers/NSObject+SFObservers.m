@@ -153,7 +153,11 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"removeObserver
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
     NSLog(@"Calling original method %@ with parameters %@ %@", NSObjectKVOSFObserversRemoveSelector, observer, keyPath);
 #endif
-    objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSelector), observer, keyPath);
+      @try {
+          objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSelector), observer, keyPath);
+      } @catch (id anException) {
+          // do nothing, obviously it wasn't attached because an exception was thrown
+      }
     return;
   }
 
@@ -165,7 +169,11 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"removeObserver
       NSLog(@"Calling original method %@ with parameters %@ %@", NSObjectKVOSFObserversRemoveSelector, observer, keyPath);
 #endif
       [self setAllowMethodForwarding:YES];
-      objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSelector), observer, keyPath);
+        @try {
+            objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSelector), observer, keyPath);
+        } @catch (id anException) {
+            // do nothing, obviously it wasn't attached because an exception was thrown
+        }
       [self setAllowMethodForwarding:NO];
     }
   }
