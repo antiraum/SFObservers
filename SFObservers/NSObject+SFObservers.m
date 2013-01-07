@@ -127,7 +127,11 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"removeObserver
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
         NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, weakObserver, keyPath, weakContext);
 #endif
-        objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), weakObserver, keyPath, weakContext);
+          @try {
+              objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), weakObserver, keyPath, weakContext);
+          } @catch (id anException) {
+              // do nothing, obviously it wasn't attached because an exception was thrown
+          }
         [self setAllowMethodForwarding:NO];
       }
     }
@@ -173,7 +177,11 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"removeObserver
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
     NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, observer, keyPath, context);
 #endif
-    objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), observer, keyPath, context);
+      @try {
+          objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), observer, keyPath, context);
+      } @catch (id anException) {
+          // do nothing, obviously it wasn't attached because an exception was thrown
+      }
     return;
   }
 
@@ -185,7 +193,11 @@ static NSString *NSObjectKVOSFObserversRemoveSpecificSelector = @"removeObserver
       NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSObjectKVOSFObserversRemoveSpecificSelector, observer, keyPath, context);
 #endif
       [self setAllowMethodForwarding:YES];
-      objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), observer, keyPath, context);
+        @try {
+            objc_msgSend(self, NSSelectorFromString(NSObjectKVOSFObserversRemoveSpecificSelector), observer, keyPath, context);
+        } @catch (id anException) {
+            // do nothing, obviously it wasn't attached because an exception was thrown
+        }
       [self setAllowMethodForwarding:NO];
     }
   }
