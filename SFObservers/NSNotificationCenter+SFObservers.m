@@ -53,9 +53,9 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"remov
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     @autoreleasepool {
-//      [self sf_swapSelector:@selector(addObserver:selector:name:object:) withSelector:@selector(sf_addObserver:selector:name:object:)];
-//      [self sf_swapSelector:@selector(removeObserver:) withSelector:@selector(sf_removeObserver:)];
-//      [self sf_swapSelector:@selector(removeObserver:name:object:) withSelector:@selector(sf_removeObserver:name:object:)];
+//        [NSNotificationCenter sf_swapSelector:@selector(addObserver:selector:name:object:) withSelector:@selector(sf_addObserver:selector:name:object:)];
+//        [NSNotificationCenter sf_swapSelector:@selector(removeObserver:) withSelector:@selector(sf_removeObserver:)];
+//        [NSNotificationCenter sf_swapSelector:@selector(removeObserver:name:object:) withSelector:@selector(sf_removeObserver:name:object:)];
     }
   });
 }
@@ -124,12 +124,12 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"remov
     int numberOfRemovals = 0;
     if ((numberOfRemovals = [weakSelf sf_removeObserver:weakObserver name:aName object:weakObject registeredNotifications:registeredNotifications])) {
       for (int i = 0; i < numberOfRemovals; ++i) {
-        [self setAllowMethodForwarding:YES];
+        [weakSelf setAllowMethodForwarding:YES];
 #if SF_OBSERVERS_LOG_ORIGINAL_METHODS
         NSLog(@"Calling original method %@ with parameters %@ %@ %@", NSNotificationCenterSFObserversRemoveSpecificSelector, weakObserver, aName, weakObject);
 #endif
         objc_msgSend(weakSelf, NSSelectorFromString(NSNotificationCenterSFObserversRemoveSpecificSelector), weakObserver, aName, weakObject);
-        [self setAllowMethodForwarding:NO];
+        [weakSelf setAllowMethodForwarding:NO];
       }
     }
   }];
@@ -221,7 +221,7 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"remov
           [objectsToRemove addObject:innerObj];
 
           //! cancel dealloc blocks
-          [innerObj cancelDeallocBlockWithKey:info.blockKey];
+          [observer cancelDeallocBlockWithKey:info.blockKey];
         }
       }];
 
